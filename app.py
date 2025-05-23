@@ -1,4 +1,5 @@
-
+from io import BytesIO  # Add this with other imports
+import requests
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,12 +8,14 @@ import requests
 # Load data
 @st.cache_data
 def load_data():
-    import os
-    base_path = os.path.dirname(os.path.abspath(__file__))
-    movies = pd.read_csv(os.path.join(base_path, 'film_fellow_movies.csv'))
-    cosine_sim = np.load(os.path.join(base_path, 'cosine_final.npz'))['data'].astype(np.float32)
+    # Use direct GitHub RAW URLs for files
+    movies_url = "https://github.com/your-username/film-fellow/raw/main/film_fellow_movies.csv"
+    cosine_url = "https://github.com/your-username/film-fellow/raw/main/cosine_final.npz"
+    
+    # Load data directly from GitHub
+    movies = pd.read_csv(movies_url)
+    cosine_sim = np.load(BytesIO(requests.get(cosine_url).content)['data'].astype(np.float32)
     return movies, cosine_sim
-
 movies, cosine_sim = load_data()
 TMDB_API_KEY = st.secrets["TMDB_API_KEY"]
 
