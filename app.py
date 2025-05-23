@@ -24,7 +24,7 @@ def load_data():
 
 # Load data
 movies, cosine_sim = load_data()
-TMDB_API_KEY = st.secrets["TMDB_API_KEY"]
+TMDB_API_KEY = st.secrets["369798a8da27f4e8fbe63628922a4c4d"]
 
 # Recommendation function
 def recommend_movies(title):
