@@ -7,8 +7,10 @@ import requests
 # Load data
 @st.cache_data
 def load_data():
-    movies = pd.read_csv('film_fellow_movies.csv')
-    cosine_sim = np.load('cosine_final.npz')['data'].astype(np.float32)
+    import os
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    movies = pd.read_csv(os.path.join(base_path, 'film_fellow_movies.csv'))
+    cosine_sim = np.load(os.path.join(base_path, 'cosine_final.npz'))['data'].astype(np.float32)
     return movies, cosine_sim
 
 movies, cosine_sim = load_data()
