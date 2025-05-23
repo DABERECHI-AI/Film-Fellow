@@ -6,8 +6,8 @@ from io import BytesIO
 import streamlit as st
 
 # GitHub RAW URLs (replace with your actual links)
-MOVIES_URL = https://github.com/DABERECHI-AI/Film-Fellow/blob/main/film_fellow_movies.csv.gz
-COSINE_URL = https://github.com/DABERECHI-AI/Film-Fellow/blob/main/cosine_final.npz
+MOVIES_URL = "https://github.com/DABERECHI-AI/Film-Fellow/raw/refs/heads/main/film_fellow_movies.csv.gz"
+COSINE_URL = "https://github.com/DABERECHI-AI/Film-Fellow/raw/refs/heads/main/cosine_final.npz"
 
 @st.cache_data
 def load_data():
@@ -35,8 +35,8 @@ import requests
 @st.cache_data
 def load_data():
     # Use direct GitHub URLs
-    movies_url = https://github.com/DABERECHI-AI/Film-Fellow/blob/main/film_fellow_movies.csv.gz
-    cosine_url =https://github.com/DABERECHI-AI/Film-Fellow/blob/main/cosine_final.npz
+    movies_url = "https://github.com/DABERECHI-AI/Film-Fellow/raw/refs/heads/main/film_fellow_movies.csv.gz"
+    cosine_url = "https://github.com/DABERECHI-AI/Film-Fellow/raw/refs/heads/main/cosine_final.npz"
     
     # Load compressed CSV
     movies = pd.read_csv(movies_url, compression='gzip')
