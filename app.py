@@ -1,9 +1,8 @@
-
+import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
 from io import BytesIO
-import streamlit as st
 
 # GitHub RAW URLs (replace with your actual links)
 MOVIES_URL = "https://github.com/DABERECHI-AI/Film-Fellow/raw/refs/heads/main/film_fellow_movies.csv.gz"
@@ -18,34 +17,12 @@ def load_data():
         # Load cosine sim
         response = requests.get(COSINE_URL)
         cosine_sim = np.load(BytesIO(response.content))['data'].astype(np.float32)
-        
         return movies, cosine_sim
     except Exception as e:
         st.error(f"Data loading failed: {str(e)}")
         return pd.DataFrame(), np.array([])  # Prevent app crash
 
-movies, cosine_sim = load_data()from io import BytesIO
-import requests
-import streamlit as st
-import pandas as pd
-import numpy as np
-import requests
-
 # Load data
-@st.cache_data
-def load_data():
-    # Use direct GitHub URLs
-    movies_url = "https://github.com/DABERECHI-AI/Film-Fellow/raw/refs/heads/main/film_fellow_movies.csv.gz"
-    cosine_url = "https://github.com/DABERECHI-AI/Film-Fellow/raw/refs/heads/main/cosine_final.npz"
-    
-    # Load compressed CSV
-    movies = pd.read_csv(movies_url, compression='gzip')
-    
-    # Load cosine matrix
-    response = requests.get(cosine_url)
-    cosine_sim = np.load(BytesIO(response.content))['data'].astype(np.float32)
-    
-    return movies, cosine_sim
 movies, cosine_sim = load_data()
 TMDB_API_KEY = st.secrets["TMDB_API_KEY"]
 
