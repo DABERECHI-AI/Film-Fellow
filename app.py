@@ -1,4 +1,30 @@
+
+import pandas as pd
+import numpy as np
+import requests
 from io import BytesIO
+import streamlit as st
+
+# GitHub RAW URLs (replace with your actual links)
+MOVIES_URL = https://github.com/DABERECHI-AI/Film-Fellow/blob/main/film_fellow_movies.csv.gz
+COSINE_URL = https://github.com/DABERECHI-AI/Film-Fellow/blob/main/cosine_final.npz
+
+@st.cache_data
+def load_data():
+    try:
+        # Load movies
+        movies = pd.read_csv(MOVIES_URL, compression='gzip')
+        
+        # Load cosine sim
+        response = requests.get(COSINE_URL)
+        cosine_sim = np.load(BytesIO(response.content))['data'].astype(np.float32)
+        
+        return movies, cosine_sim
+    except Exception as e:
+        st.error(f"Data loading failed: {str(e)}")
+        return pd.DataFrame(), np.array([])  # Prevent app crash
+
+movies, cosine_sim = load_data()from io import BytesIO
 import requests
 import streamlit as st
 import pandas as pd
@@ -9,8 +35,8 @@ import requests
 @st.cache_data
 def load_data():
     # Use direct GitHub URLs
-    movies_url = "https://github.com/YOUR-USERNAME/film-fellow/raw/main/film_fellow_movies.csv.gz"
-    cosine_url = "https://github.com/YOUR-USERNAME/film-fellow/raw/main/cosine_final.npz"
+    movies_url = https://github.com/DABERECHI-AI/Film-Fellow/blob/main/film_fellow_movies.csv.gz
+    cosine_url =https://github.com/DABERECHI-AI/Film-Fellow/blob/main/cosine_final.npz
     
     # Load compressed CSV
     movies = pd.read_csv(movies_url, compression='gzip')
